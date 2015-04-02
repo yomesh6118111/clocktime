@@ -8,12 +8,18 @@
 		<script>
 ///////// O P T I O N S //////////
 var showNumbers = true;
+var hourHands = ['img/big1.png', 'img/big2.png'];
+var minuteHands = ['img/med1.png', 'img/med2.png'];
+var secondHands = ['img/small1.png', 'img/small2.png'];
 /////////////////////////////////
 
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius;
+var hourimg;
+var minuteimg;
+var secondimg;
 
 window.addEventListener('resize', resizeCanvas, false);
 setInterval(drawClock, 1000);
@@ -26,7 +32,11 @@ function resizeCanvas() {
 
 	radius = size / 2;
 	ctx.translate(radius, radius);
-	radius = radius * 0.93
+	radius = radius * 0.93;
+
+	hourimg = document.createElement("img");
+	minuteimg = document.createElement("img");
+	secondimg = document.createElement("img");
 
 	drawClock();
 }
@@ -87,27 +97,31 @@ function drawHands() {
 
 	//hour
 	hour=hour%12;
+	hourimg.src = getHand(hour, hourHands);
 	hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60))+(second*Math.PI/(360*60));
-	drawHand(ctx, hour, radius*0.5, radius*0.07);
+	drawHand(hour, radius*0.5, radius*0.2, hourimg);
+
 	//minute
+	minuteimg.src = getHand(minute, minuteHands);
 	minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
-	drawHand(ctx, minute, radius*0.8, radius*0.07);
+	drawHand(minute, radius*0.7, radius*0.2, minuteimg);
+
 	// second
+	secondimg.src = getHand(second, secondHands);
 	second=(second*Math.PI/30);
-	drawHand(ctx, second, radius*0.9, radius*0.02);
+	drawHand(second, radius*0.8, radius*0.1, secondimg);
 }
 
-function drawHand(ctx, pos, length, width) {
-	ctx.fillStyle='white';
-	ctx.strokeStyle='black';
-	ctx.beginPath();
-	ctx.lineWidth = width;
-	ctx.lineCap = "round";
+function drawHand(pos, length, width, img) {
+	pos -= Math.PI/2; // Images are rotated by 90*?
 	ctx.moveTo(0,0);
 	ctx.rotate(pos);
-	ctx.lineTo(0, -length);
-	ctx.stroke();
+	ctx.drawImage(img,0,-width/2,length,width);
 	ctx.rotate(-pos);
+}
+
+function getHand(time, list) {
+	return list[time % (list.length)];
 }
 		</script>
 
