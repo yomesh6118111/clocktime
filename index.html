@@ -6,6 +6,11 @@
 		<canvas id="canvas" style="background-color:white;display:block;margin:0;padding:0;margin-left:auto;margin-right:auto"></canvas>
 
 		<script>
+///////// O P T I O N S //////////
+var showNumbers = true;
+/////////////////////////////////
+
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius;
@@ -27,7 +32,7 @@ function resizeCanvas() {
 
 function drawClock() {
 	drawFace();
-	drawNumbers();
+	showNumbers && drawNumbers();
 	drawHands();
 }
 
@@ -78,6 +83,7 @@ function drawHands() {
 	var hour = now.getHours();
 	var minute = now.getMinutes();
 	var second = now.getSeconds();
+
 	//hour
 	hour=hour%12;
 	hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60))+(second*Math.PI/(360*60));
