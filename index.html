@@ -25,6 +25,10 @@ function resizeCanvas() {
 }
 
 function drawClock() {
+	drawFace();
+}
+
+function drawFace() {
 	// Make us a circle
 	ctx.arc(0, 0, radius, 0 , 2*Math.PI);
 
