@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>Clocktime</title>
+	</head>
+	<body style="width:100%;height:100%;margin:0;padding:0;">
+		<canvas id="canvas" style="background-color:#333;display:block;margin:0;padding:0;margin-left:auto;margin-right:auto"></canvas>
+
+		<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius;
+
+window.addEventListener('resize', resizeCanvas, false);
+
+function resizeCanvas() {
+	var size = Math.min(window.innerWidth, window.innerHeight);
+	canvas.width = size;
+	canvas.height = size;
+
+	radius = size / 2;
+	ctx.translate(radius, radius);
+	radius = radius * 0.90
+
+	drawClock();
+}
+
+function drawClock() {
+	ctx.arc(0, 0, radius, 0 , 2*Math.PI);
+	ctx.fillStyle = "white";
+	ctx.fill();
+}
+
+resizeCanvas();
+		</script>
+
+	</body>
+</html>
