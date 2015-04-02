@@ -18,13 +18,16 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var radius;
 
+// Set up listeners for resize and second tick events
 window.addEventListener('resize', resizeCanvas, false);
 setInterval(drawClock, 1000);
 
+// Load images up front 
 hourHands = loadImages(hourHands);
 minuteHands = loadImages(minuteHands);
 secondHands = loadImages(secondHands);
 
+// Set up our canvas!
 resizeCanvas();
 
 function loadImages(list) {
